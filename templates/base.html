@@ -2,7 +2,7 @@
 <link href="{% static 'style.css' %}" rel="stylesheet">
 <body onload="clockon(bgclock)">
 
-{#<meta http-equiv="Content-Type" content="text/html; charset=utf-8">#}
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 <table width="778" border="0" align="center" cellpadding="0" cellspacing="0">
   <tbody><tr>
     <td height="118" valign="top" background="{% static 'top_bg.gif' %}" bgcolor="#EEEEEE"><table width="100%" height="33" border="0" cellpadding="0" cellspacing="0">
@@ -30,12 +30,6 @@
     </tbody></table></td>
   </tr>
 </tbody></table>
-
-
-
-
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script src="{% static 'onclock.JS' %}" charset="gbk"></script>
 <script src="{% static 'menu.JS' %}" charset="gbk"></script>
 <div class="menuskin" id="popmenu" onmouseover="clearhidemenu();highlightmenu(event,'on')" onmouseout="highlightmenu(event,'off');dynamichide(event)" style="Z-index:100;position:absolute;"></div>
@@ -46,12 +40,12 @@
 		<script language="javascript">
 			function quit(){
 				if(confirm("真的要退出系统吗?")){
-					window.location.href="login.html";
+					window.location.href="/library/login/";
 				}
 			}
 		</script>
-        <td width="66%" align="right" bgcolor="#B0690B" class="word_white"><a href="main.html" class="word_white">首页</a> |
-        <a onmouseover="showmenu(event,sysmenu)" onmouseout="delayhidemenu()" class="word_white" style="CURSOR:hand">系统设置</a> | <a onmouseover="showmenu(event,readermenu)" onmouseout="delayhidemenu()" style="CURSOR:hand" class="word_white">读者管理</a> | <a onmouseover="showmenu(event,bookmenu)" onmouseout="delayhidemenu()" class="word_white" style="CURSOR:hand">图书管理</a> | <a onmouseover="showmenu(event,borrowmenu)" onmouseout="delayhidemenu()" class="word_white" style="CURSOR:hand">图书借还</a> | <a onmouseover="showmenu(event,querymenu)" onmouseout="delayhidemenu()" class="word_white" style="CURSOR:hand">系统查询</a> | <a href="pwd_Modify.html" class="word_white">更改口令</a> | <a href="#" onclick="quit()" class="word_white">退出系统</a></td>
+        <td width="66%" align="right" bgcolor="#B0690B" class="word_white"><a href="/library/main/" class="word_white">首页</a> |
+        <a onmouseover="showmenu(event,sysmenu)" onmouseout="delayhidemenu()" class="word_white" style="CURSOR:hand">系统设置</a> | <a onmouseover="showmenu(event,readermenu)" onmouseout="delayhidemenu()" style="CURSOR:hand" class="word_white">读者管理</a> | <a onmouseover="showmenu(event,bookmenu)" onmouseout="delayhidemenu()" class="word_white" style="CURSOR:hand">图书管理</a> | <a onmouseover="showmenu(event,borrowmenu)" onmouseout="delayhidemenu()" class="word_white" style="CURSOR:hand">图书借还</a> | <a onmouseover="showmenu(event,querymenu)" onmouseout="delayhidemenu()" class="word_white" style="CURSOR:hand">系统查询</a> | <a href="/library/pwd_Modify/" class="word_white">更改口令</a> | <a href="#" onclick="quit()" class="word_white">退出系统</a></td>
         <td width="2%" bgcolor="#B0690B">&nbsp;</td>
   </tr>
       <tr bgcolor="#DFA40C">

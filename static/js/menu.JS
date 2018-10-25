@@ -166,29 +166,29 @@ function doClick() {
 	}
 }
 function overbg(tdbg){
-tdbg.style.background='url(Images/item_over.gif)'
+tdbg.style.background='url(/static/item_over.gif)'
 tdbg.style.border=' #B0690B 1px solid'
 }
 function outbg(tdbg){
-tdbg.style.background='url(.Images/item_out.gif)'
-tdbg.style.border=''
+tdbg.style.background='url(/static/item_out.gif)'
+tdbg.style.border='#B0690B 1px solid'
 }
-var sysmenu='<table width=80><tr><td id=library onMouseOver=overbg(library) onMouseOut=outbg(library)><a href="library_modify.html">图书馆信息</a></td></tr>\
-<tr><td id=manager onMouseOver=overbg(manager) onMouseOut=outbg(manager)><a href="manager.html">管理员设置</a></td></tr>\
-<tr><td id=para onMouseOver=overbg(para) onMouseOut=outbg(para)><a href="parameter_modify.html">参数设置</a></td></tr>\
-<tr><td id=bookcase onMouseOver=overbg(bookcase) onMouseOut=outbg(bookcase)><a href="bookcase.html">书架设置</a></td></tr>\
+var sysmenu='<table width=80><tr><td id=library onMouseOver=overbg(library) onMouseOut=outbg(library)><a href="/library/library_modify/">图书馆信息</a></td></tr>\
+<tr><td id=manager onMouseOver=overbg(manager) onMouseOut=outbg(manager)><a href="/library/manager/">管理员设置</a></td></tr>\
+<tr><td id=para onMouseOver=overbg(para) onMouseOut=outbg(para)><a href="/library/parameter_modify/">参数设置</a></td></tr>\
+<tr><td id=bookcase onMouseOver=overbg(bookcase) onMouseOut=outbg(bookcase)><a href="/library/bookcase/">书架设置</a></td></tr>\
 </table>'
-var readermenu='<table width=90><tr><td id=readerType onMouseOver=overbg(readerType) onMouseOut=outbg(readerType)><a href="readerType.html">读者类型管理</a></td></tr>\
-<tr><td id=reader onMouseOver=overbg(reader) onMouseOut=outbg(reader)><a href="reader.html">读者档案管理</a></td></tr>\
+var readermenu='<table width=90><tr><td id=readerType onMouseOver=overbg(readerType) onMouseOut=outbg(readerType)><a href="/library/readerType/">读者类型管理</a></td></tr>\
+<tr><td id=reader onMouseOver=overbg(reader) onMouseOut=outbg(reader)><a href="/library/reader/">读者档案管理</a></td></tr>\
 </table>'
-var bookmenu='<table width=90><tr><td id=bookType onMouseOver=overbg(bookType) onMouseOut=outbg(bookType)><a href="bookType.html">图书类型设置</a></td></tr>\
-<tr><td id=book onMouseOver=overbg(book) onMouseOut=outbg(book)><a href="book.html">图书档案管理</a></td></tr>\
+var bookmenu='<table width=90><tr><td id=bookType onMouseOver=overbg(bookType) onMouseOut=outbg(bookType)><a href="/library/bookType/">图书类型设置</a></td></tr>\
+<tr><td id=book onMouseOver=overbg(book) onMouseOut=outbg(book)><a href="/library/book/">图书档案管理</a></td></tr>\
 </table>'
-var borrowmenu='<table width=60><tr><td id=Borrow onMouseOver=overbg(Borrow) onMouseOut=outbg(Borrow)><a href="bookBorrow.html">图书借阅</a></td></tr>\
-<tr><td id=renew onMouseOver=overbg(renew) onMouseOut=outbg(renew)><a href=bookRenew.html>图书续借</a></td></tr>\
-<tr><td id=giveback onMouseOver=overbg(giveback) onMouseOut=outbg(giveback)><a href=bookBack.html>图书归还</a></td></tr>\
+var borrowmenu='<table width=60><tr><td id=Borrow onMouseOver=overbg(Borrow) onMouseOut=outbg(Borrow)><a href="/library/bookBorrow/">图书借阅</a></td></tr>\
+<tr><td id=renew onMouseOver=overbg(renew) onMouseOut=outbg(renew)><a href=/library/bookRenew/>图书续借</a></td></tr>\
+<tr><td id=giveback onMouseOver=overbg(giveback) onMouseOut=outbg(giveback)><a href=/library/bookBack/>图书归还</a></td></tr>\
 </table>'
-var querymenu='<table width=90><tr><td id=bookQuery onMouseOver=overbg(bookQuery) onMouseOut=outbg(bookQuery)><a href="bookQuery.html">图书档案查询</a></td></tr>\
-<tr><td id=borrowQuery onMouseOver=overbg(borrowQuery) onMouseOut=outbg(borrowQuery)><a href="borrowQuery.html">图书借阅查询</a></td></tr>\
-<tr><td id=givebackQuery onMouseOver=overbg(givebackQuery) onMouseOut=outbg(givebackQuery)><a href="bremind.html">借阅到期提醒</a></td></tr>\
+var querymenu='<table width=90><tr><td id=bookQuery onMouseOver=overbg(bookQuery) onMouseOut=outbg(bookQuery)><a href="/library/bookQuery/">图书档案查询</a></td></tr>\
+<tr><td id=borrowQuery onMouseOver=overbg(borrowQuery) onMouseOut=outbg(borrowQuery)><a href="/library/borrowQuery/">图书借阅查询</a></td></tr>\
+<tr><td id=givebackQuery onMouseOver=overbg(givebackQuery) onMouseOut=outbg(givebackQuery)><a href="/library/bremind/">借阅到期提醒</a></td></tr>\
 </table>'
