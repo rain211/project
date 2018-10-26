@@ -9,147 +9,137 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-
-class TbBookcase(models.Model):
-    name = models.CharField(max_length=30, blank=True, null=True)
-    column_3 = models.CharField(db_column='Column_3', max_length=10, blank=True, null=True)  # Field name made lowercase.
+# 还书表
+class Bookback(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    rid = models.ForeignKey('Readerinfo', models.DO_NOTHING, db_column='rid', blank=True, null=True)
+    bid = models.ForeignKey('Bookinfo', models.DO_NOTHING, db_column='bid', blank=True, null=True)
+    backtime = models.DateTimeField(blank=True, null=True)
+    operator = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'tb_bookcase'
+        db_table = 'bookback'
 
 
-class TbBookinfo(models.Model):
-    barcode = models.CharField(max_length=30, blank=True, null=True)
-    bookname = models.CharField(max_length=70, blank=True, null=True)
-    typeid = models.IntegerField(blank=True, null=True)
+class Bookcase(models.Model):
+    bcid = models.AutoField(primary_key=True)
+    bcname = models.CharField(max_length=30, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'bookcase'
+
+
+class Bookcode(models.Model):
+    bcode = models.IntegerField(primary_key=True)
+    bid = models.ForeignKey('Bookinfo', models.DO_NOTHING, db_column='bid', blank=True, null=True)
+    addtime = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'bookcode'
+
+
+class Bookinfo(models.Model):
+    bid = models.AutoField(primary_key=True)
+    bname = models.CharField(max_length=70, blank=True, null=True)
+    btid = models.ForeignKey('Booktype', models.DO_NOTHING, db_column='btid', blank=True, null=True)
     author = models.CharField(max_length=30, blank=True, null=True)
-    translator = models.CharField(max_length=30, blank=True, null=True)
     isbn = models.CharField(db_column='ISBN', max_length=20, blank=True, null=True)  # Field name made lowercase.
     price = models.FloatField(blank=True, null=True)
-    page = models.IntegerField(blank=True, null=True)
-    bookcase = models.IntegerField(blank=True, null=True)
-    intime = models.DateField(db_column='inTime', blank=True, null=True)  # Field name made lowercase.
-    operator = models.CharField(max_length=30, blank=True, null=True)
-    del_field = models.IntegerField(db_column='del', blank=True, null=True)  # Field renamed because it was a Python reserved word.
+    bcid = models.ForeignKey(Bookcase, models.DO_NOTHING, db_column='bcid', blank=True, null=True)
+    pubilshing = models.CharField(max_length=70, blank=True, null=True)
+    num = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'tb_bookinfo'
+        db_table = 'bookinfo'
 
 
-class TbBooktype(models.Model):
+class Booktype(models.Model):
+    btid = models.AutoField(primary_key=True)
     typename = models.CharField(max_length=30, blank=True, null=True)
-    days = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'tb_booktype'
+        db_table = 'booktype'
 
 
-class TbBorrow(models.Model):
-    readerid = models.IntegerField(blank=True, null=True)
-    bookid = models.IntegerField(blank=True, null=True)
-    borrowtime = models.DateField(db_column='borrowTime', blank=True, null=True)  # Field name made lowercase.
-    backtime = models.DateField(db_column='backTime', blank=True, null=True)  # Field name made lowercase.
+class Borrow(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    rid = models.ForeignKey('Readerinfo', models.DO_NOTHING, db_column='rid', blank=True, null=True)
+    bid = models.ForeignKey(Bookinfo, models.DO_NOTHING, db_column='bid', blank=True, null=True)
+    borrowtime = models.DateTimeField(blank=True, null=True)
+    backtime = models.DateTimeField(blank=True, null=True)
     operator = models.CharField(max_length=30, blank=True, null=True)
     ifback = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'tb_borrow'
+        db_table = 'borrow'
 
 
-class TbGiveback(models.Model):
-    readerid = models.IntegerField(blank=True, null=True)
-    bookid = models.IntegerField(blank=True, null=True)
-    backtime = models.DateField(db_column='backTime', blank=True, null=True)  # Field name made lowercase.
-    operator = models.CharField(max_length=30, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'tb_giveback'
-
-
-class TbLibrary(models.Model):
+class Library(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     libraryname = models.CharField(max_length=50, blank=True, null=True)
     curator = models.CharField(max_length=10, blank=True, null=True)
     tel = models.CharField(max_length=20, blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
     email = models.CharField(max_length=100, blank=True, null=True)
-    url = models.CharField(max_length=100, blank=True, null=True)
-    createdate = models.DateField(db_column='createDate', blank=True, null=True)  # Field name made lowercase.
+    url = models.CharField(db_column='URL', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    createdate = models.DateTimeField(blank=True, null=True)
     introduce = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'tb_library'
+        db_table = 'library'
 
 
-class TbManager(models.Model):
-    name = models.CharField(max_length=30, blank=True, null=True)
-    pwd = models.CharField(db_column='PWD', max_length=30, blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tb_manager'
-
-
-class TbParameter(models.Model):
-    cost = models.IntegerField(blank=True, null=True)
-    validity = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'tb_parameter'
-
-
-class TbPublishing(models.Model):
-    isbn = models.CharField(db_column='ISBN', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    pubname = models.CharField(max_length=30, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'tb_publishing'
-
-
-class TbPurview(models.Model):
-    id = models.IntegerField(primary_key=True)
+class Manager(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    user = models.CharField(max_length=30, blank=True, null=True)
+    pwd = models.CharField(max_length=30, blank=True, null=True)
     sysset = models.IntegerField(blank=True, null=True)
     readerset = models.IntegerField(blank=True, null=True)
     bookset = models.IntegerField(blank=True, null=True)
-    borrowback = models.IntegerField(blank=True, null=True)
+    borrowset = models.IntegerField(blank=True, null=True)
     sysquery = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'tb_purview'
+        db_table = 'manager'
 
 
-class TbReader(models.Model):
-    name = models.CharField(max_length=20, blank=True, null=True)
-    sex = models.CharField(max_length=4, blank=True, null=True)
-    barcode = models.CharField(max_length=30, blank=True, null=True)
+class Readerinfo(models.Model):
+    rid = models.AutoField(primary_key=True)
+    rname = models.CharField(max_length=20, blank=True, null=True)
+    gender = models.CharField(max_length=4, blank=True, null=True)
+    barcode = models.CharField(db_column='BARCODE', max_length=30, blank=True, null=True)  # Field name made lowercase.
     vocation = models.CharField(max_length=50, blank=True, null=True)
-    birthday = models.DateField(blank=True, null=True)
+    birthday = models.DateTimeField(blank=True, null=True)
     papertype = models.CharField(db_column='paperType', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    paperno = models.CharField(db_column='paperNO', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    tel = models.CharField(max_length=20, blank=True, null=True)
+    paperno = models.CharField(db_column='PAPERNO', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    tel = models.CharField(db_column='Tel', max_length=20, blank=True, null=True)  # Field name made lowercase.
     email = models.CharField(max_length=100, blank=True, null=True)
-    createdate = models.DateField(db_column='createDate', blank=True, null=True)  # Field name made lowercase.
-    operator = models.CharField(max_length=30, blank=True, null=True)
-    remark = models.TextField(blank=True, null=True)
-    typeid = models.IntegerField(blank=True, null=True)
+    createdate = models.DateTimeField(db_column='createDate', blank=True, null=True)  # Field name made lowercase.
+    operator = models.CharField(db_column='OPERATOR', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    remark = models.TextField(db_column='REMARK', blank=True, null=True)  # Field name made lowercase.
+    rtid = models.ForeignKey('Readertype', models.DO_NOTHING, db_column='rtid', blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'tb_reader'
+        db_table = 'readerinfo'
 
 
-class TbReadertype(models.Model):
-    name = models.CharField(max_length=50, blank=True, null=True)
-    number = models.IntegerField(blank=True, null=True)
+class Readertype(models.Model):
+    rtid = models.AutoField(primary_key=True)
+    typename = models.CharField(max_length=50, blank=True, null=True)
+    num = models.IntegerField(blank=True, null=True)
+    time = models.IntegerField(blank=True, null=True)
+    cprice = models.IntegerField(blank=True, null=True)
+    validity = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'tb_readertype'
+        db_table = 'readertype'

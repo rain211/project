@@ -1,10 +1,21 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
+from library.models import Manager
+
+
 def login_view(request):
-    return render(request,"login.html")
-
-
+    if request.method == 'GET':
+        return render(request, "login.html")
+    else:
+        name= request.POST.get('name')
+        pwd  = request.POST.get('pwd')
+        count = Manager.objects.filter(user = name,pwd = pwd).count()
+        message = '账号或密码有误'
+        if count == 1:
+            return render(request,'main.html')
+        return render(request,'login.html',{'message':message})
 def main_view(request):
     return render(request,"main.html")
 
@@ -65,3 +76,4 @@ def bremind_view(request):
 
 def pwd_Modify_view(request):
     return render(request,"pwd_Modify.html")
+
