@@ -14,12 +14,12 @@
   <tbody><tr>
     <td width="87%">&nbsp;      </td>
 <td width="13%">
-      <a href="reader_add.jsp">添加读者信息</a></td>
+      <a href="/reader/addreader/">添加读者信息</a></td>
   </tr>
 </tbody></table>
   <table width="95%" border="1" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bordercolordark="#F6B83B" bordercolorlight="#FFFFFF">
   <tbody><tr align="center" bgcolor="#e3F4F7">
-    <td width="13%" bgcolor="#F9D16B">条形码</td>
+    <td width="13%" bgcolor="#F9D16B">借书卡号</td>
     <td width="10%" bgcolor="#F9D16B">姓名</td>
     <td width="8%" bgcolor="#F9D16B">读者类型</td>
     <td width="12%" bgcolor="#F9D16B">证件类型</td>
@@ -29,31 +29,23 @@
     <td width="5%" bgcolor="#F9D16B">修改</td>
     <td width="5%" bgcolor="#F9D16B">删除</td>
   </tr>
+  {% for r in read %}
+
+
 
   <tr>
-    <td style="padding:5px;">2008010100001</td>
-    <td style="padding:5px;"><a href="reader.do?action=readerDetail&amp;ID=1">wgh</a></td>
-    <td style="padding:5px;">学生</td>
-    <td align="center">身份证</td>
-    <td align="center">2201041980********</td>
-    <td align="center">13634*******</td>
-    <td align="center">wgh717@****.com</td>
+    <td style="padding:5px;">{{ r.barcode }}</td>
+    <td style="padding:5px;"><a href="reader.do?action=readerDetail&amp;ID=1">{{ r.rname }}</a></td>
+    <td style="padding:5px;">{{ r.rtid.typename }}</td>
+    <td align="center">{{ r.papertype }}</td>
+    <td align="center">{{ r.paperno }}</td>
+    <td align="center">{{ r.tel }}</td>
+    <td align="center">{{ r.email }}</td>
     <td align="center"><a href="reader.do?action=readerModifyQuery&amp;ID=1">修改</a></td>
     <td align="center"><a href="reader.do?action=readerDel&amp;ID=1">删除</a></td>
   </tr>
 
-  <tr>
-    <td style="padding:5px;">123123123</td>
-    <td style="padding:5px;"><a href="reader.do?action=readerDetail&amp;ID=2">的</a></td>
-    <td style="padding:5px;">教师</td>
-    <td align="center">身份证</td>
-    <td align="center">220</td>
-    <td align="center">&nbsp;</td>
-    <td align="center">&nbsp;</td>
-    <td align="center"><a href="reader.do?action=readerModifyQuery&amp;ID=2">修改</a></td>
-    <td align="center"><a href="reader.do?action=readerDel&amp;ID=2">删除</a></td>
-  </tr>
-
+    {% endfor %}
 </tbody></table></td>
       </tr>
     </tbody></table>
