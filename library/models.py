@@ -30,7 +30,7 @@ class Readerinfo(models.Model):
     email = models.CharField(max_length=100, blank=True, null=True)
     createdate = models.DateField(db_column='createDate', blank=True, null=True)  # Field name made lowercase.
     address = models.CharField(max_length=100, blank=True, null=True)
-    bobooknum = models.IntegerField(blank=True, null=True)
+    isdelete = models.IntegerField(blank=True, null=True)
     rtid = models.ForeignKey(Readertype,db_column='rtid', blank=True, null=True)
 
     class Meta:
