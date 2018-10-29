@@ -24,11 +24,11 @@ def bookcase_view(request):
 
 
 def readerType_view(request):
-    return render(request,"readerType.html")
+    return render(request, "../reader/templates/readerType.html")
 
 
 def reader_view(request):
-    return render(request,"reader.html")
+    return render(request, "../reader/templates/readerset.html")
 
 
 def bookType_view(request):
