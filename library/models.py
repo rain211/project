@@ -15,7 +15,6 @@ class Readertype(models.Model):
     num = models.IntegerField(blank=True, null=True)
     cprice = models.IntegerField(blank=True, null=True)
     validity = models.IntegerField(blank=True, null=True)
-
     class Meta:
         managed = False
         db_table = 'readertype'
@@ -26,12 +25,12 @@ class Readerinfo(models.Model):
     barcode = models.CharField(db_column='BARCODE', unique=True, max_length=30, blank=True, null=True)  # Field name made lowercase.
     birthday = models.DateField(blank=True, null=True)
     papertype = models.CharField(db_column='paperType', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    paperno = models.CharField(db_column='PAPERNO', unique=True, max_length=20, blank=True, null=True)  # Field name made lowercase.
+    paperno = models.CharField(db_column='PAPERNO', unique=True, max_length=100, blank=True, null=True)  # Field name made lowercase.
     tel = models.CharField(db_column='Tel', max_length=20, blank=True, null=True)  # Field name made lowercase.
     email = models.CharField(max_length=100, blank=True, null=True)
-    createdate = models.DateTimeField(db_column='createDate', blank=True, null=True)  # Field name made lowercase.
+    createdate = models.DateField(db_column='createDate', blank=True, null=True)  # Field name made lowercase.
     address = models.CharField(max_length=100, blank=True, null=True)
-    bobooknum = models.IntegerField(blank=True, null=True)
+    isdelete = models.IntegerField(blank=True, null=True)
     rtid = models.ForeignKey(Readertype,db_column='rtid', blank=True, null=True)
 
     class Meta:
@@ -141,3 +140,5 @@ class Manager(models.Model):
     class Meta:
         managed = False
         db_table = 'manager'
+
+
