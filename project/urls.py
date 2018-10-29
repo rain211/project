@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'library/',include("library.urls")),
+    url(r'^library/',include("library.urls")),
+    url(r'^reader/',include("reader.urls")),
 ]
