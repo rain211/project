@@ -28,41 +28,21 @@
 				    <td>借阅次数</td>
                   </tr>
 
+
+
+{% for info in infos %}
                   <tr>
                     <td height="25" align="center">1</td>
-					<td style="padding:5px;">&nbsp;9787302047230</td>
-					<td style="padding:5px;">Java学习指南</td>
-					<td style="padding:5px;">计算机类</td>
-					<td align="center">&nbsp;A架</td>
-					<td align="center">&nbsp;电子工业出版社</td>
-					<td width="11%" align="center">***</td>
-					<td width="8%" align="center">39.0</td>
-				    <td width="8%" align="center">4</td>
+					<td style="padding:5px;">{{ info.bid }}</td>
+					<td style="padding:5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ info.bname }}</td>
+					<td style="padding:5px;">{{ info.btid.typename }}</td>
+					<td align="center">&nbsp;{{ info.bcid.bcname }}</td>
+					<td align="center">&nbsp;{{ info.pubilshing }}</td>
+					<td width="11%" align="center">{{ info.author }}</td>
+					<td width="8%" align="center">{{ info.price }}</td>
+				    <td width="8%" align="center">{{ info.borrow_set.all.count}}</td>
                   </tr>
-
-                  <tr>
-                    <td height="25" align="center">2</td>
-					<td style="padding:5px;">&nbsp;001</td>
-					<td style="padding:5px;">建筑测试</td>
-					<td style="padding:5px;">建筑类</td>
-					<td align="center">&nbsp;B架</td>
-					<td align="center">&nbsp;电子工业出版社</td>
-					<td width="11%" align="center">做做</td>
-					<td width="8%" align="center">11.0</td>
-				    <td width="8%" align="center">4</td>
-                  </tr>
-
-                  <tr>
-                    <td height="25" align="center">3</td>
-					<td style="padding:5px;">&nbsp;9787115157690</td>
-					<td style="padding:5px;">JSP啊</td>
-					<td style="padding:5px;">计算机类</td>
-					<td align="center">&nbsp;A架</td>
-					<td align="center">&nbsp;清华大学出版社</td>
-					<td width="11%" align="center">***</td>
-					<td width="8%" align="center">89.0</td>
-				    <td width="8%" align="center">2</td>
-                  </tr>
+{% endfor %}
 
                 </tbody></table>
                   </td>

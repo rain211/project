@@ -1,8 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
-from library.models import Manager
+from library.models import Manager, Bookinfo
 
 
 def login_view(request):
@@ -11,13 +11,17 @@ def login_view(request):
     else:
         name= request.POST.get('name')
         pwd  = request.POST.get('pwd')
-        count = Manager.objects.filter(user = name,pwd = pwd).count()
+        count = Manager.objects.filter(user=name,pwd=pwd).count()
         message = '账号或密码有误'
         if count == 1:
-            return render(request,'main.html')
+            return redirect('/library/main/')
         return render(request,'login.html',{'message':message})
 def main_view(request):
-    return render(request,"main.html")
+    infos = Bookinfo.objects.all()
+    # booktype = Bookinfo.objects.filter(btid=bid)
+    # print(infos)
+    # borrow = Bookinfo.objects.get().borrow_set.all().count()
+    return render(request,"main.html",{'infos':infos})
 
 
 def library_modify_view(request):

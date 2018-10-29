@@ -9,11 +9,67 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-# 还书表
+class Readertype(models.Model):
+    rtid = models.AutoField(primary_key=True)
+    typename = models.CharField(unique=True, max_length=50, blank=True, null=True)
+    num = models.IntegerField(blank=True, null=True)
+    cprice = models.IntegerField(blank=True, null=True)
+    validity = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'readertype'
+class Readerinfo(models.Model):
+    rid = models.AutoField(primary_key=True)
+    rname = models.CharField(max_length=20, blank=True, null=True)
+    gender = models.CharField(max_length=4, blank=True, null=True)
+    barcode = models.CharField(db_column='BARCODE', unique=True, max_length=30, blank=True, null=True)  # Field name made lowercase.
+    birthday = models.DateField(blank=True, null=True)
+    papertype = models.CharField(db_column='paperType', max_length=10, blank=True, null=True)  # Field name made lowercase.
+    paperno = models.CharField(db_column='PAPERNO', unique=True, max_length=20, blank=True, null=True)  # Field name made lowercase.
+    tel = models.CharField(db_column='Tel', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    email = models.CharField(max_length=100, blank=True, null=True)
+    createdate = models.DateTimeField(db_column='createDate', blank=True, null=True)  # Field name made lowercase.
+    address = models.CharField(max_length=100, blank=True, null=True)
+    bobooknum = models.IntegerField(blank=True, null=True)
+    rtid = models.ForeignKey(Readertype,db_column='rtid', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'readerinfo'
+class Booktype(models.Model):
+    btid = models.AutoField(primary_key=True)
+    typename = models.CharField(unique=True, max_length=30, blank=True, null=True)
+    btime = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'booktype'
+class Bookcase(models.Model):
+    bcid = models.AutoField(primary_key=True)
+    bcname = models.CharField(unique=True, max_length=30, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'bookcase'
+
+class Bookinfo(models.Model):
+    bid = models.AutoField(primary_key=True)
+    bname = models.CharField(max_length=70, blank=True, null=True)
+    btid = models.ForeignKey(Booktype,db_column='btid', blank=True, null=True)
+    author = models.CharField(max_length=30, blank=True, null=True)
+    isbn = models.CharField(db_column='ISBN', unique=True, max_length=20, blank=True, null=True)  # Field name made lowercase.
+    price = models.FloatField(blank=True, null=True)
+    bcid = models.ForeignKey(Bookcase,db_column='bcid', blank=True, null=True)
+    pubilshing = models.CharField(max_length=70, blank=True, null=True)
+    num = models.IntegerField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'bookinfo'
 class Bookback(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
-    rid = models.ForeignKey('Readerinfo', models.DO_NOTHING, db_column='rid', blank=True, null=True)
-    bid = models.ForeignKey('Bookinfo', models.DO_NOTHING, db_column='bid', blank=True, null=True)
+    rid = models.ForeignKey(Readerinfo,db_column='rid', blank=True, null=True)
+    bid = models.ForeignKey(Bookinfo,db_column='bid', blank=True, null=True)
     backtime = models.DateTimeField(blank=True, null=True)
     operator = models.CharField(max_length=30, blank=True, null=True)
 
@@ -22,18 +78,9 @@ class Bookback(models.Model):
         db_table = 'bookback'
 
 
-class Bookcase(models.Model):
-    bcid = models.AutoField(primary_key=True)
-    bcname = models.CharField(max_length=30, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'bookcase'
-
-
 class Bookcode(models.Model):
     bcode = models.IntegerField(primary_key=True)
-    bid = models.ForeignKey('Bookinfo', models.DO_NOTHING, db_column='bid', blank=True, null=True)
+    bid = models.ForeignKey(Bookinfo,db_column='bid', blank=True, null=True)
     addtime = models.DateTimeField(blank=True, null=True)
 
     class Meta:
@@ -41,34 +88,9 @@ class Bookcode(models.Model):
         db_table = 'bookcode'
 
 
-class Bookinfo(models.Model):
-    bid = models.AutoField(primary_key=True)
-    bname = models.CharField(max_length=70, blank=True, null=True)
-    btid = models.ForeignKey('Booktype', models.DO_NOTHING, db_column='btid', blank=True, null=True)
-    author = models.CharField(max_length=30, blank=True, null=True)
-    isbn = models.CharField(db_column='ISBN', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    price = models.FloatField(blank=True, null=True)
-    bcid = models.ForeignKey(Bookcase, models.DO_NOTHING, db_column='bcid', blank=True, null=True)
-    pubilshing = models.CharField(max_length=70, blank=True, null=True)
-    num = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'bookinfo'
-
-
-class Booktype(models.Model):
-    btid = models.AutoField(primary_key=True)
-    typename = models.CharField(max_length=30, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'booktype'
-
-
 class Borrow(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
-    rid = models.ForeignKey('Readerinfo', models.DO_NOTHING, db_column='rid', blank=True, null=True)
+    rid = models.ForeignKey(Readerinfo, models.DO_NOTHING, db_column='rid', blank=True, null=True)
     bid = models.ForeignKey(Bookinfo, models.DO_NOTHING, db_column='bid', blank=True, null=True)
     borrowtime = models.DateTimeField(blank=True, null=True)
     backtime = models.DateTimeField(blank=True, null=True)
@@ -78,6 +100,16 @@ class Borrow(models.Model):
     class Meta:
         managed = False
         db_table = 'borrow'
+
+
+class DjangoMigrations(models.Model):
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_migrations'
 
 
 class Library(models.Model):
@@ -98,7 +130,7 @@ class Library(models.Model):
 
 class Manager(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
-    user = models.CharField(max_length=30, blank=True, null=True)
+    user = models.CharField(unique=True, max_length=30, blank=True, null=True)
     pwd = models.CharField(max_length=30, blank=True, null=True)
     sysset = models.IntegerField(blank=True, null=True)
     readerset = models.IntegerField(blank=True, null=True)
@@ -109,37 +141,3 @@ class Manager(models.Model):
     class Meta:
         managed = False
         db_table = 'manager'
-
-
-class Readerinfo(models.Model):
-    rid = models.AutoField(primary_key=True)
-    rname = models.CharField(max_length=20, blank=True, null=True)
-    gender = models.CharField(max_length=4, blank=True, null=True)
-    barcode = models.CharField(db_column='BARCODE', max_length=30, blank=True, null=True)  # Field name made lowercase.
-    vocation = models.CharField(max_length=50, blank=True, null=True)
-    birthday = models.DateTimeField(blank=True, null=True)
-    papertype = models.CharField(db_column='paperType', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    paperno = models.CharField(db_column='PAPERNO', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    tel = models.CharField(db_column='Tel', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    email = models.CharField(max_length=100, blank=True, null=True)
-    createdate = models.DateTimeField(db_column='createDate', blank=True, null=True)  # Field name made lowercase.
-    operator = models.CharField(db_column='OPERATOR', max_length=30, blank=True, null=True)  # Field name made lowercase.
-    remark = models.TextField(db_column='REMARK', blank=True, null=True)  # Field name made lowercase.
-    rtid = models.ForeignKey('Readertype', models.DO_NOTHING, db_column='rtid', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'readerinfo'
-
-
-class Readertype(models.Model):
-    rtid = models.AutoField(primary_key=True)
-    typename = models.CharField(max_length=50, blank=True, null=True)
-    num = models.IntegerField(blank=True, null=True)
-    time = models.IntegerField(blank=True, null=True)
-    cprice = models.IntegerField(blank=True, null=True)
-    validity = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'readertype'

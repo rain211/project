@@ -5,7 +5,7 @@ from library import views
 
 urlpatterns = [
     url(r'^login/',views.login_view),
-    url(r'^main/', views.main_view),
+    url(r'^main/', views.main_view,name='main'),
     url(r'^library_modify/', views.library_modify_view),
     url(r'^manager/',views.manager_view),
     url(r'^parameter_modify/', views.parameter_modify_view),

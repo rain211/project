@@ -4,32 +4,42 @@
 <head>
     <title>图书馆管理系统</title>
     <link href="{% static 'style.css' %}" rel="stylesheet">
+    <style>
+        .redSpan{color:red;font-weight:bold;font-size: 5px}
+		.blueSpan{color:blue;font-weight:bold;font-size: 5px}
+    </style>
     <script language="javascript">
 
 
-        function check(form) {
-            if (form.name.value == "") {
-                alert("请输入管理员名称!");
-                form.name.focus();
-                return false;
+        function checkFiles(eleId){
+                var ele = document.getElementById(eleId).value;
+                var eleSpan = document.getElementById(eleId+'Span')
+
+                if(ele.length == 0){
+                    eleSpan.innerHTML = '不可为空'
+                    eleSpan.className = 'redSpan'
+                    return false
+                }
+                else {
+                    eleSpan.innerHTML = '√'
+				    eleSpan.className = 'blueSpan'
+				    return true
+                }
+
             }
-            if (form.pwd.value == "") {
-                alert("请输入密码!");
-                form.pwd.focus();
-                return false;
-            }
+        function checkUname(){
 
+		        return checkFiles('name')
+	}
+	    function checkPwd(){
 
+		        return checkFiles('pwd')
+	}
 
-        }
 
     </script>
 </head>
 <body>
-
-
-
-
 <table width="778" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#F9D16B" class="tableBorder">
     <tr>
         <td>
@@ -63,7 +73,7 @@
                                                                 <td width="2%">&nbsp;</td>
                                                                 <td width="97%" align="center" valign="top">
                                                                     <form name="form1" method="post"
-                                                                          action="/library/main/">
+                                                                        action="/library/login/">
                                                                         {% csrf_token %}
                                                                         <table width="100%" border="0" cellpadding="0"
                                                                                cellspacing="0"
@@ -82,24 +92,25 @@
                                                                                 <td width="31%">
                                                                                     <input name="name" type="text"
                                                                                            class="logininput" id="name"
-                                                                                           size="27"></td>
-                                                                                <td width="9%">&nbsp;</td>
+                                                                                           size="27" onblur="checkUname()"><span id="nameSpan" ></span></td>
+                                                                                <td width="9%" ></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td height="37">&nbsp;</td>
                                                                                 <td>管理员密码：</td>
                                                                                 <td><input name="pwd"  type="password"
                                                                                            class="logininput" id="pwd"
-                                                                                           size="27">
+                                                                                           size="27" onblur="checkPwd()"><span id="pwdSpan" ></span>
                                                                                     </td>
-                                                                                <td>    </td>
+                                                                                <td><span style="color: red;" id="pwdspan"></span>    </td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td height="30">&nbsp;</td>
                                                                                 <td colspan="2" align="center"><input
                                                                                         name="Submit" type="submit"
                                                                                         class="btn_grey" value="确定"
-                                                                                        onClick="return check(form1)">
+{#                                                                                        onClick="return check(form1)#}
+">
                                                                                     &nbsp;
                                                                                     <input name="Submit3" type="reset"
                                                                                            class="btn_grey" value="重置">&nbsp;
