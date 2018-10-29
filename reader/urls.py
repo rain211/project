@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^addreader/',views.addreader_view),
     url(r'^readerchange/(\d+)',views.readerchange_view),
     url(r'^readerdel/(\d+)',views.readerdel_view),
+    url(r'^show/(\d+)',views.show_view),
 ]

@@ -51,7 +51,7 @@
   {% for r in read %}
   <tr>
     <td style="padding:5px;">{{ r.barcode }}</td>
-    <td align="center" style="padding:5px;"><a href="reader.do?action=readerDetail&amp;ID=1">{{ r.rname }}</a></td>
+    <td align="center" style="padding:5px;"><a href="/reader/show/{{ r.rid }}" title="点击查看借阅详情">{{ r.rname }}</a></td>
     <td align="center" style="padding:5px;">{{ r.gender }}</td>
     <td align="center">{{ r.rtid.typename }}</td>
     <td align="center">{{ r.paperno }}</td>

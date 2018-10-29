@@ -87,3 +87,9 @@ def readerchange_view(request,num):
 def readerdel_view(request,num):
     Readerinfo.objects.filter(rid=num).update(isdelete=1)
     return redirect('/reader/')
+
+
+def show_view(request,num):
+    if request.method == 'GET':
+        reader = Readerinfo.objects.get(rid=num)
+        return render(request,'show.html',{'reader':reader})
