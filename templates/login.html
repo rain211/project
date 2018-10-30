@@ -9,8 +9,6 @@
 		.blueSpan{color:blue;font-weight:bold;font-size: 5px}
     </style>
     <script language="javascript">
-
-
         function checkFiles(eleId){
                 var ele = document.getElementById(eleId).value;
                 var eleSpan = document.getElementById(eleId+'Span')
@@ -27,6 +25,9 @@
                 }
 
             }
+
+
+
         function checkUname(){
 
 		        return checkFiles('name')
@@ -35,6 +36,13 @@
 
 		        return checkFiles('pwd')
 	}
+{#        function checkUser(){#}
+{#            var user1 = document.getElementById('name').value;#}
+{#            setCookie('userName',name.value,7)#}
+{#            location.href = 'b.html'#}
+{##}
+{#            }#}
+
 
 
     </script>
@@ -108,9 +116,9 @@
                                                                                 <td height="30">&nbsp;</td>
                                                                                 <td colspan="2" align="center"><input
                                                                                         name="Submit" type="submit"
-                                                                                        class="btn_grey" value="确定"
-{#                                                                                        onClick="return check(form1)#}
-">
+                                                                                        class="btn_grey" value="确定" onClick='checkUser()'>
+
+
                                                                                     &nbsp;
                                                                                     <input name="Submit3" type="reset"
                                                                                            class="btn_grey" value="重置">&nbsp;
