@@ -5,40 +5,33 @@
         function $(sid){
             return document.getElementById(sid);
         }
-    
-        function flagafunc(flag,count) {
-           if(!flag){
-               if(count==1){
-                   $('method').disabled = true;
-                   $('key').disabled = true;
-
-               }else{
-                   $('sdate').disabled = false;
-                    $('edate').disabled = false;
-               }
-
-           }
-        }
+{#    #}
+{#        function flagafunc(flag,count) {#}
+{#           if(!flag){#}
+{#               if(count==1){#}
+{#                   $('method').disabled = true;#}
+{#                   $('key').disabled = true;#}
+{##}
+{#               }else{#}
+{#                   $('sdate').disabled = false;#}
+{#                    $('edate').disabled = false;#}
+{#               }#}
+{##}
+{#           }#}
+{#        }#}
 
         function checkkey() {
             var key = document.getElementById('key').value;
             var keySpan = document.getElementById('keySpan');
             var flagas = document.getElementsByName('flaga');
-
-
-
-
                 if (key == '') {
                     keySpan.innerHTML = '搜索内容不可为空';
                     keySpan.style.color = 'red';
-
-
                     return false;
                 }
                 else {
                     keySpan.innerHTML = 'ok';
                     keySpan.style.color = 'green';
-                    flaga.checked = !flaga.checked;
                     return true
                 }
 
@@ -52,7 +45,7 @@
             var flagSpan = document.getElementById('flagSpan');
 {#            var flagb = document.getElementById('flagb')#}
 
-                if (sdate == '' | edate == '') {
+                if (sdate.length==0 | edate.length == 0) {
                     flagSpan.innerHTML = '不能为空';
                     flagSpan.style.color = 'red';
                     return false;
@@ -69,6 +62,7 @@
             var flag = checkdate() & checkkey();
 {#            alert(flag)#}
 {#            alert(flag = 1 ? false:true)#}
+
             return flag = 1 ? false:true
 
 
@@ -122,7 +116,7 @@
 {#                                                           onclick="flagafunc(this.checked,2);"#}
                                                     >
                                                     借阅时间： 从
-                                                    <input name="sdate" type="date" id="sdate" onblur="checkdate(fla)" >
+                                                    <input name="sdate" type="date" id="sdate" onblur="checkdate()" >
                                                     到
                                                     <input name="edate" type="date" id="edate"
                                                            onblur="checkdate()" ><span id="flagSpan"></span>

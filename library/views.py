@@ -1,8 +1,9 @@
+import datetime
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from library.models import Manager, Bookinfo, Borrow, Readerinfo
+from library.models import Manager, Bookinfo, Borrow, Readerinfo, Bookcase
 from reader.views import page_num
 
 
@@ -63,11 +64,76 @@ def book_view(request):
 
 
 def bookBorrow_view(request):
-    return render(request,"bookBorrow.html")
+    if request.method == 'GET':
+        return render(request,'bookBorrow.html')
+    else:
+        barcode = request.POST.get('barcode')
+        key = request.POST.get('inputkey')
+        radio = request.POST.get('f')
+        btime = request.POST.get('inputbtime')
+        bactime = request.POST.get('inputbacktime')
+        submit = request.POST.get('submit3')
+        submit4 = request.POST.get('submit4')
+        submit5 = request.POST.get('submit5')
+        if  barcode == '':
+            readers = ''
+        else:
+            readers = Readerinfo.objects.get(barcode=barcode)
+        if key == '':
+            infos = ''
+        else:
+            if radio == 'isbn':
+                infos = Bookinfo.objects.get(isbn=key)
+                if submit5 == '完成归还':
+                    Borrow.objects.filter(rid=readers, bid__isbn=key).update(ifback=1)
+            if radio == 'bookname':
+                infos = Bookinfo.objects.get(bname=key)
+                if submit5 == '完成归还':
+                    Borrow.objects.filter(rid=readers,bid__bname=key).update(ifback=1)
+
+        if submit == '完成借阅':
+            if btime == '' or bactime == '':
+                borrowtime = ''
+                bactkime = ''
+            else:
+                borrowtime = datetime.datetime.strptime(btime, '%Y-%m-%d')
+                backtime = datetime.datetime.strptime(bactime, '%Y-%m-%d')
+                Borrow.objects.create(rid= readers,bid = infos,borrowtime = borrowtime,backtime = backtime,operator = '张老汉',ifback = 0)
+        if submit4 == '完成续借':
+            if btime == '' or bactime == '':
+                borrowtime = ''
+                bactkime = ''
+            else:
+                borrowtime = datetime.datetime.strptime(btime, '%Y-%m-%d')
+                backtime = datetime.datetime.strptime(bactime, '%Y-%m-%d')
+                Borrow.objects.filter(rid= readers,bid = infos,borrowtime = borrowtime,operator = '张老汉',ifback = 0).update(backtime = backtime,)
+
+        return render(request,"bookBorrow.html",{'readers':readers,'infos':infos,'barcode':barcode,
+                                                 'key':key,'borrowtime':btime,'backtime':bactime})
 
 
 def bookRenew_view(request):
-    return render(request,"bookRenew.html")
+    if request.method == 'GET':
+        return render(request,'bookRenew.html')
+    else:
+        barcode = request.POST.get('barcode')
+        bactime = request.POST.get('inputbacktime')
+        submit = request.POST.get('submit3')
+
+        if barcode == '':
+            readers = ''
+        else:
+            readers = Readerinfo.objects.get(barcode=barcode)
+
+        if submit == '完成续借':
+            if  bactime == '':
+                bactkime = ''
+            else:
+
+                backtime = datetime.datetime.strptime(bactime, '%Y-%m-%d')
+                Borrow.objects.update(backtime = backtime,operator = '张老汉',ifback = 0)
+        infos = Bookinfo.objects.get(borrow__rid__barcode=barcode)
+        return render(request,"bookRenew.html",{'readers':readers,'barcode':barcode,'backtime':bactime,'infos':infos})
 
 
 def bookBack_view(request):
